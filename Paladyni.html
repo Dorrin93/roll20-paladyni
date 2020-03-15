@@ -1,0 +1,304 @@
+<h1 align='center'>Karta postaci</h1>
+
+<div align='center'>
+    <button type="action" name="act_stats" >Statystyki</button>
+    <button type="action" name="act_equipment" >Ekwipunek</button>
+    <button type="action" name="act_skills" >Umiejętności</button>
+    <button type="action" name="act_notes" >Notatki</button>
+</div>
+<input type='hidden' class='sheet-tabstoggle' name='attr_sheetTab'  value='skills'  />
+
+
+<div class='sheet-stats'>
+<h2>Statystyki</h2>
+<div class='2colrow'>
+    
+    <div class='col'>
+        <p>Imię:</p>
+        <p><input type="text" name="attr_character_name" placeholder="Imię Postaci"></p>
+        <p>Klasa techniczna:</p>
+        <p><select name="attr_tclass">
+            <option value="0" selected="selected">Berserker</option>
+            <option value="1">Ciężkozbrojny</option>
+            <option value="2">Tancerz Ostrzy</option>
+            <option value="3">Agent</option>
+            <option value="4">Lansjer</option>
+            <option value="5">Zwiadowca</option>
+        </select></p>
+        
+        <p>Bóstwo:</p>
+        <p><select name="attr_deity">
+            <option value="0" selected="selected">Laselis</option>
+            <option value="1">Dethelion</option>
+            <option value="2">Aquest</option>
+            <option value="3">Nateis</option>
+            <option value="4">Ferlar</option>
+            <option value="5">Arles</option>
+        </select></p>
+        
+        <p>Poziom:</p>
+        <p><input type="number" name="attr_level" value='1' min='1'/></p>
+        <!-- TODO makro zwiększające poziom gdy exp > 100  -->
+    </div>
+    
+    <div class='col'>
+        <p>Rasa:</p>
+        <p><select name="attr_race">
+            <option value="0" selected="selected">Człowiek</option>
+            <option value="1">Elf</option>
+            <option value="2">Krasnolud</option>
+            <option value="3">Drow</option>
+            <option value="4">Ichtian</option>
+            <option value="5">Rhoden</option>
+            </select></p>
+            
+        <p>Klasa magiczna:</p>
+        <p><select name="attr_mclass">
+            <option value="0" selected="selected">Alchemik</option>
+            <option value="1">Inżynier</option>
+            <option value="2">Kowal run</option>
+            <option value="3">Mistyk</option>
+            <option value="4">Przywoływacz</option>
+            <option value="5">Szaman</option>
+        </select></p>
+        
+        <p>Karma:</p>
+        <p><input type="number" name="attr_karma" value='100' min='0' max='100'/></p>
+        
+        <p>Doświadczenie:</p>
+        <p><input type="number" name="attr_exp" value='0' min='0' max='100'/></p>
+        <!-- TODO makro dodające exp  -->
+    </div>
+</div>
+
+
+<div class='3colrow'>
+    <!-- TODO ukryte pola z wartościami bazowymi, wyliczanie wartości na bazie bazowych + eq  -->
+    <div class='col'><table align="left">
+    <tbody>
+    <tr>
+        <td>PZ:</td><td>
+        <input type='number', name='attr_pz' min=0 /></td>
+    </tr>
+    <tr>
+        <td>PK:</td><td>
+        <input type='number', name='attr_pk' min=0 /></td>
+    </tr>
+    <tr>
+        <td>PM:</td><td>
+        <input type='number', name='attr_pm' min=0 /></td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+    
+    <div class='col'><table align="left">
+    <tbody>
+    <tr>
+        <td>Siła:</td>
+        <td><input type='number', name='attr_str' min=0 /></td>
+        <td><button type='roll' value='/me rzuca na Siłę: [[1d20+@{str}]]'
+        name='roll_str'></button></td>
+    </tr>
+    <tr>
+        <td>Zręczność:</td>
+        <td><input type='number', name='attr_agi' min=0 /></td>
+        <td><button type='roll' value="/me rzuca na Zręczność: [[1d20+@{agi}]]"
+        name='roll_agi'></button></td>
+    </tr>
+    <tr>
+        <td>ZT:</td>
+        <td><input type='number', name='attr_zt' value=ceil((@{str}+@{agi})/2) disabled="true" /></td>
+        <td><button type='roll' value="/me rzuca na ZT: [[2d6+@{zt}]]"
+        name='roll_zt'></button></td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+    
+    <div class='col'><table align="left">
+    <tbody>
+    <tr>
+        <td>Inteligencja:</td>
+        <td><input type='number', name='attr_inte' min=0 /></td>
+        <td><button type='roll' value='/me rzuca na Inteligencję: [[1d20+@{inte}]]'
+        name='roll_inte'></button></td>
+    </tr>
+    <tr>
+        <td>Charymza:</td>
+        <td><input type='number', name='attr_chr' min=0 /></td>
+        <td><button type='roll' value="/me rzuca na Charyzmę: [[1d20+@{chr}]]"
+        name='roll_chr'></button></td>
+    </tr>
+    <tr>
+        <td>ZM:</td>
+        <td><input type='number', name='attr_zm' value=ceil((@{inte}+@{chr})/2) disabled="true" /></td>
+        <td><button type='roll' value="/me rzuca na ZM: [[2d6+@{zm}]]"
+        name='roll_zm'></button></td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+    
+</div>
+</div>
+
+<div class='sheet-equipment'>
+<h2>Ekwipunek</h2>
+<!-- TODO automatyczna zmiana wartości zdrowia przy ataku  -->
+<h3>Broń biała</h3>
+<div class='sheet-bottom-space'>
+<fieldset class="repeating_weapons">
+    <input type="text" name="attr_wepname" placeholder="Nazwa">
+    <input type="number" name="attr_wdcount" />
+    <select name="attr_wdtype" class="dtype"> 
+    <option value="d4">d4</option>
+    <option value="d6">d6</option>
+    <option value="d8">d8</option>
+    <option value="d10">d10</option>
+    <option value="d12">d12</option>
+    <option value="d20">d20</option>
+  </select>
+  <input type="number" name="attr_wmodif" /> 
+  <button type='roll' value='&{template:default} {{name=@{character_name}}} {{Broń= @{wepname}}} {{Cel =@{target|character_name}}} {{Atak= @{character_name} atakuje @{target|character_name} zadając [[@{wdcount}@{wdtype}+@{wmodif}]] obrażeń}}'
+  name='roll_weapon'></button>
+</fieldset>
+</div>
+
+<h3>Broń dystansowa</h3>
+<div class='sheet-bottom-space'>
+<fieldset class="repeating_rangeweapons">
+    <input type="text" name="attr_rangewepname" placeholder="Nazwa">
+    <input type="number" name="attr_rwdcount" />
+    <select name="attr_rwdtype" class="dtype"> 
+    <option value="d4">d4</option>
+    <option value="d6">d6</option>
+    <option value="d8">d8</option>
+    <option value="d10">d10</option>
+    <option value="d12">d12</option>
+    <option value="d20">d20</option>
+  </select>
+  <input type="number" name="attr_rwmodif" /> 
+  <button type='roll' value='&{template:default} {{name=@{character_name}}} {{Broń= @{rangewepname}}} {{Cel =@{target|character_name}}} {{Atak= @{character_name} atakuje @{target|character_name} zadając [[@{rwdcount}@{rwdtype}+@{rwmodif}]] obrażeń}}'
+  name='roll_weapon'></button>
+  Amunicja: <input type="number" name="attr_ammo" placeholder='#' />
+</fieldset>
+</div>
+
+<h3>Zbroja</h3>
+<div class='sheet-bottom-space'>
+<fieldset class="repeating_armor">
+<input type="text" name="attr_armname" placeholder="Nazwa">
+<input type="number" name="attr_armvalue" max=0 /> 
+</fieldset>
+</div>
+
+<h3>Biżuteria/inne</h3>
+<div class='sheet-bottom-space'>
+<fieldset class="repeating_armor">
+<input type="text" name="attr_jewelname" placeholder="Nazwa">
+<textarea name="attr_jewelnotes" placeholder="Opis"></textarea>
+</fieldset>
+</div>
+
+<h3>Plecak</h3>
+<div class='sheet-bottom-space'>
+<fieldset class="repeating_backpack">
+<input type="text" name="attr_itemname" placeholder="Nazwa">
+<input type="number" name="attr_itemamount" min=0 placeholder='#' /> 
+<textarea name="attr_itemnotes" placeholder="Opis"></textarea>
+</fieldset>
+</div>
+
+<h3>Sakiewka</h3>
+<table align="left">
+<tr>
+    <td>Platyna:</td>
+    <td><input type="number" name="attr_plat" min=0 /></td>
+</tr>
+<tr>
+    <td>Złoto:</td>
+    <td><input type="number" name="attr_gold" min=0 /></td>
+</tr>
+<tr>
+    <td>Srebro:</td>
+    <td><input type="number" name="attr_silver" min=0 /></td>
+</tr>
+<tr>
+    <td>Brąz:</td>
+    <td><input type="number" name="attr_copper" min=0 /></td>
+</tr>
+</div>
+
+<div class='sheet-skills'>
+<div class='sheet-bottom-space'>
+<h2>Umiejętności</h2>
+</div>
+
+<h3>Umiejętności techniczne</h3>
+<div class='sheet-bottom-space'>
+<fieldset class="repeating_techskills">
+    <input type="text" name="attr_techskillname" placeholder="Nazwa" />
+    <input type='number' name='attr_techskillcost' placeholder='#' /> PK
+    <p></p>
+    <input type="number" name="attr_techdcount" />
+    <select name="attr_techdtype" class="dtype">
+    <option value="none">-</option> 
+    <option value="d4">d4</option>
+    <option value="d6">d6</option>
+    <option value="d8">d8</option>
+    <option value="d10">d10</option>
+    <option value="d12">d12</option>
+    <option value="d20">d20</option>
+    </select>
+  <input type="number" name="attr_techmodif" /> 
+  <button type='roll' value='&{template:default} {{name=@{character_name}}} {{Umiejętność= @{techskillname}}} {{Cel =@{target|character_name}}} {{Działanie= @{character_name} używa umiejętności @{techskillname} na @{target|character_name} ze skutkiem [[@{techdcount}@{techdtype}+@{techmodif}]]}}'
+  name='roll_techskill'>
+    </button>
+    <textarea name="attr_techinfo" placeholder='Opis'></textarea>
+</fieldset>
+</div>
+
+<h3>Umiejętności Magiczne</h3>
+<div class='sheet-bottom-space'>
+<fieldset class="repeating_magskills">
+    <input type="text" name="attr_magskillname" placeholder="Nazwa" />
+    <input type='number' name='attr_magskillcost' placeholder='#' /> PM
+    <p></p>
+    <input type="number" name="attr_magdcount" />
+    <select name="attr_magdtype" class="dtype">
+    <option value="none">-</option> 
+    <option value="d4">d4</option>
+    <option value="d6">d6</option>
+    <option value="d8">d8</option>
+    <option value="d10">d10</option>
+    <option value="d12">d12</option>
+    <option value="d20">d20</option>
+    </select>
+  <input type="number" name="attr_magmodif" /> 
+  <button type='roll' value='&{template:default} {{name=@{character_name}}} {{Umiejętność= @{magskillname}}} {{Cel =@{target|character_name}}} {{Działanie= @{character_name} używa umiejętności @{magskillname} na @{target|character_name} ze skutkiem [[@{magdcount}@{magdtype}+@{magmodif}]]}}'
+  name='roll_magskill'>
+    </button>
+    <textarea name="attr_maginfo" placeholder='Opis'></textarea>
+</fieldset>
+</div>
+
+</div>
+
+<div class='sheet-notes'>
+<h2>Notatki</h2>
+<fieldset class="repeating_notes">
+<textarea name="attr_notes"></textarea>
+</fieldset>
+</div>
+
+<script type="text/worker">
+    const buttonlist = ["stats","equipment","skills","notes"];
+    buttonlist.forEach(button => {
+        on(`clicked:${button}`, function() {
+            setAttrs({
+                sheetTab: button
+            });
+        });
+    });
+</script>

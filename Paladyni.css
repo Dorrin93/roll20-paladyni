@@ -1,0 +1,36 @@
+.character {
+    font-size: 12px;
+    font-weight: bolder;
+    font-family: "Times New Roman";
+}
+
+textarea {
+    display:block;
+    resize:vertical;
+    min-height: 2em;
+    max-height: 2.5em;
+    height: 2em;
+}
+
+html,body{
+    height:100%;
+}
+
+ .sheet-bottom-space {
+     margin-bottom: 20px;
+ }
+
+.sheet-stats,
+.sheet-equipment,
+.sheet-skills,
+.sheet-notes {
+	display: none;
+}
+
+/* show the selected tab */
+.sheet-tabstoggle[value="stats"] ~ div.sheet-stats,
+.sheet-tabstoggle[value="equipment"] ~ div.sheet-equipment,
+.sheet-tabstoggle[value="skills"] ~ div.sheet-skills,
+.sheet-tabstoggle[value="notes"] ~ div.sheet-notes {
+	display: block;
+}
